@@ -24,20 +24,17 @@ public class ProductOfOther {
 	 */
 	public static int[] productOfOther(int [] intArray) {
 		int len = intArray.length;
-		int lowProd[] = new int[len];
-		int highProd[] = new int[len];
 		int prod[] = new int[len];
 		
-		lowProd[0] = 1;
-		highProd[len-1] = 1;
-		for (int i = 0; i < len; i++) {
-			if (i > 0) lowProd[i] = intArray[i-1] * lowProd[i-1];
-			int k = len - i - 1;
-			if (k < len-1) highProd[k] = highProd[k+1] * intArray[k+1];
+		prod[0] = 1;
+		for (int i = 1; i < len; i++) {
+			prod[i] = intArray[i-1] * prod[i-1];
 		}
 		
-		for (int i = 0; i < len; i++) {
-			prod[i] = highProd[i] * lowProd[i];
+		int p = 1;
+		for (int k = len - 2; k >= 0; k--) {
+			p *= intArray[k+1];
+			prod[k] *= p;
 		}
 		
 		return prod;
